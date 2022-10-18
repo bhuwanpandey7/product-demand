@@ -1,0 +1,40 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+
+.App {
+    font-family: 'Roboto';
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 78vw;
+    margin: 5rem 16rem;
+
+    .tabs {
+        &.nav-tabs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .App__header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+
+        .App__header-heading {
+            color: #3C4858;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        .App__header-text {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 24px;
+            color: #8492A6;
+        }
+    }
+}

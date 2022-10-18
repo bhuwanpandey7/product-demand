@@ -1,0 +1,82 @@
+.product {
+    display: flex;
+    flex-direction: row;
+    height: 80vh;
+    justify-content: space-between;
+    height: 100vh;
+    border-radius: 4px;
+
+    .product__data {
+        width: 70%;
+        height: inherit;
+        margin-right: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        .product__header {
+            height: 35%;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
+            margin-bottom: 1rem;
+
+            .search__Wrapper {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                margin-top: 1rem;
+            }
+
+            .search {
+                margin-left: 1rem !important;
+                width: 90% !important;
+                border: none;
+                box-shadow: 1px 1px 2px 2px rgb(10 10 10 / 8%);
+            }
+
+            .product__header-checkFilters {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+
+                .check__Filters {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    label {
+                        font-size: small;
+                        padding: 5px;
+                        text-align: justify;
+                        // font-size: 13px;
+                        line-height: 15px;
+                        align-items: center;
+                        color: #8492A6;
+                    }
+                }
+            }
+
+            p {
+                padding: 0.3rem 1rem;
+                color: darkslategrey;
+            }
+
+            hr {
+                width: 100%;
+            }
+        }
+
+        .product__List {
+            background-color: #FFFFFF;
+            height: 65%;
+            box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
+        }
+    }
+
+    .product__Details {
+        width: 30%;
+        height: inherit;
+        background: #FFFFFF;
+        box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
+    }
+}

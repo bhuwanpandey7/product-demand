@@ -1,0 +1,25 @@
+div.tabs {
+    ul.nav-tabs {
+        li.nav-item {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            padding-right: 1rem;
+
+            .nav-link {
+                &.active {
+                    border-bottom: 2px solid aqua !important;
+                    background: transparent !important;
+                    border-radius: 0px !important;
+                    border: none;
+                    color: #12B8FF !important;
+                }
+
+                &.disabled {
+                    opacity: 0.2 !important;
+                    cursor: not-allowed !important;
+                }
+            }
+        }
+    }
+}
