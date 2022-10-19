@@ -11,9 +11,11 @@ class ProductHeader extends Component {
         super(props);
         this.state = {
             productData: [],
-            searchText: ""
+            searchedProduct: ""
         }
+        this.fetchProductData = this.fetchProductData.bind(this);
     }
+
     filterList = [
         {
             id: 'development',
@@ -37,19 +39,31 @@ class ProductHeader extends Component {
         }
     ];
 
-    productResponse: any = [];
-
     fetchProductData(event: any) {
-        // fetch('../../../data/products.json')
-        // .then(data => data.json())
-        // .then(data => {
-        console.log(productData);
-        // this.productResponse = productData;
         const store: any = Store;
-        store.productData = productData;
-        // this.state.searchText = event.target.value;
-        store.searchText = event.target.value;
-        // })
+        const targetValue = event.target.value.toLowerCase().trim();
+
+        const filterTypes: any = {
+            checkbox: () => {
+                this.setState(() => {
+                    this.state.productData = targetValue.length ?
+                        productData.filter(elem => elem.category.toLowerCase().trim().includes(targetValue)) :
+                        [];
+                    // this.state.searchedProduct = event.target.value;
+                    store.updateProducts(this.state.productData);
+                })
+            },
+            text: () => {
+                this.setState(() => {
+                    this.state.productData = targetValue.length ?
+                        productData.filter(elem => elem.productName.toLowerCase().trim().includes(targetValue)) :
+                        [];
+                    // this.state.searchedProduct = event.target.value;
+                    store.updateProducts(this.state.productData);
+                })
+            }
+        }
+        filterTypes[event.target.type]();
     }
 
     render() {
@@ -61,9 +75,13 @@ class ProductHeader extends Component {
                     <div className='product__header-checkFilters'>
                         {
                             this.filterList.map(({ id, label }: any) => {
-                                console.log(id, label)
                                 return <div className='check__Filters' key={id} >
-                                    <input className='' type="checkbox" value={label} id={id} />
+                                    <input
+                                        onChange={this.fetchProductData}
+                                        className=''
+                                        type="checkbox"
+                                        value={label}
+                                        id={id} />
                                     <label htmlFor={id}>{label}</label>
                                 </div>
                             })

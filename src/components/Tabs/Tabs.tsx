@@ -20,7 +20,6 @@ export default class Tabs extends Component {
                     <ul className="nav nav-tabs mb-3" role="tablist">
                         {
                             this.TABS.map(({ id, name }: any) => {
-                                console.log(name);
                                 return <li key={id} className="nav-item" role="presentation">
                                     <button
                                         className={name.includes('Product') ? "nav-link active" : "nav-link disabled"}
