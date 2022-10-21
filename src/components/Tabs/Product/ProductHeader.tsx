@@ -27,20 +27,21 @@ class ProductHeader extends Component {
             const fetchProducts = () => {
                 const filterTypes: any = {
                     checkbox: () => {
-                        this.setState(() => {
-                            this.state.productData = targetValue.length ?
+                        this.setState({
+                            productData: targetValue.length ?
                                 productData.filter(elem => elem.category.toLowerCase().trim().includes(targetValue)) :
-                                [];
-                            this.updateProductList();
-                        })
+                                []
+                        },
+                            this.updateProductList)
+
                     },
                     text: () => {
-                        this.setState(() => {
-                            this.state.productData = targetValue.length ?
+                        this.setState({
+                            productData: targetValue.length ?
                                 productData.filter(elem => elem.productName.toLowerCase().trim().includes(targetValue)) :
-                                [];
-                            this.updateProductList();
-                        })
+                                []
+                        },
+                            this.updateProductList)
                     }
                 }
                 filterTypes[event.target.type]();

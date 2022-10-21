@@ -15,8 +15,6 @@ class ProductDetails extends Component {
     const products = this.store.getProducts;
     let data = selectedProduct && toJS(selectedProduct)[0];
 
-    // let shouldDetailsBeKept = products.map((item: any) => item.productName).includes(data.productName);
-
     return data && products.map((item: any) => item.productName).includes(data.productName) ?
       <div className='product__summary'>
         <p className='product__summary-title'>Product Details</p>
@@ -29,10 +27,12 @@ class ProductDetails extends Component {
                 data.tags.map((tag: any) => <span key={tag} className="product__summary-tag">{tag}</span>)
               }
             </div> :
-            `No Tags available`
+            <span style={{ color: '#12B8FF' }}>No Tags available</span>
         }
         <div>
-          <input type="button" value="Go to Manufaturer" className='product__summary-CTE btn btn-primary btn-sm' />
+          <a target="_blank" rel="noopener noreferrer" href={data.manufacturerUrl}>
+            <input type="button" value="Go to Manufaturer" className='product__summary-CTE btn btn-primary btn-sm' />
+          </a>
         </div>
 
         <p className='product__summary-description'>
@@ -41,7 +41,6 @@ class ProductDetails extends Component {
           }
         </p>
         <div className='product__summary-options'>
-
           {
             data.option1 && data.option2 ?
               <div>

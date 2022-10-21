@@ -9,9 +9,18 @@ interface ProductItemProps {
 
 class ProductItem extends Component<ProductItemProps> {
     store: any;
+    productRef: any;
+
+    noTagsCss = {
+        color: '#12B8FF',
+        marginRight: "0.4rem",
+        padding: "0.5rem"
+    }
+
     constructor(props: any) {
         super(props);
         this.store = Store;
+        this.productRef = React.createRef();
         this.prepareProductDetails = this.prepareProductDetails.bind(this);
     }
 
@@ -19,7 +28,7 @@ class ProductItem extends Component<ProductItemProps> {
         if (event.target === event.currentTarget) {
             this.setState(() => {
                 const products = toJS(this.store.getProducts);
-                const productName = event.target.firstChild.firstChild.innerText.toLowerCase().trim();;
+                const productName = this.productRef.current.textContent.toLowerCase().trim();
                 const selectedProduct = products.filter((elem: any) => elem.productName.toLowerCase().trim() === productName);
                 this.store.updateSelectedProduct(selectedProduct);
             })
@@ -31,12 +40,16 @@ class ProductItem extends Component<ProductItemProps> {
         return (
             <div onClick={this.prepareProductDetails} className='product__List-item' key={data.productName}>
                 <div>
-                    <span>{data.productName}</span>
-                    <div className='product__List-item-tags'>
-                        {
-                            data.tags.map((tag: any) => <span key={tag} className="product__List-item-tag">{tag}</span>)
-                        }
-                    </div>
+                    <span ref={this.productRef}>{data.productName}</span>
+                    {
+                        data.tags && data.tags.length ?
+                            <div className='product__List-item-tags'>
+                                {
+                                    data.tags.map((tag: any) => <span key={tag} className="product__List-item-tag">{tag}</span>)
+                                }
+                            </div> :
+                            <span style={this.noTagsCss}>No Tags available</span>
+                    }
                 </div>
                 <span>{data.category}</span>
             </div>
