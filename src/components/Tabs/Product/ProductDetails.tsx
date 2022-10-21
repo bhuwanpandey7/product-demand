@@ -12,9 +12,12 @@ class ProductDetails extends Component {
 
   render() {
     const selectedProduct = this.store.getSelectedProduct;
+    const products = this.store.getProducts;
     let data = selectedProduct && toJS(selectedProduct)[0];
 
-    return data ?
+    // let shouldDetailsBeKept = products.map((item: any) => item.productName).includes(data.productName);
+
+    return data && products.map((item: any) => item.productName).includes(data.productName) ?
       <div className='product__summary'>
         <p className='product__summary-title'>Product Details</p>
         <hr />

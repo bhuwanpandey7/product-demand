@@ -20,13 +20,18 @@ class Store {
       // searchedProduct: observable,
       updateProducts: action,
       getProducts: computed,
-
+      resetState: action,
       selectedProduct: observable,
       updateSelectedProduct: action,
       getSelectedProduct: computed,
       // selectedProductOption: observable,
       // updateSelectedProductOption: action,
     });
+  }
+
+  resetState() {
+    this.productData = [];
+    this.selectedProduct = null;
   }
 
   updateProducts(searchedProducts: []) {
