@@ -1,14 +1,16 @@
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
-
-.App {
+* {
     font-family: 'Roboto';
     font-style: normal;
+}
+
+
+
+.App {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 78vw;
-    margin: 5rem 16rem;
+    margin: 5rem 10rem;
 
     .tabs {
         &.nav-tabs {

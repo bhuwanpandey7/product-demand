@@ -5,46 +5,56 @@ import Store from '../../../Stores/Store'
 
 class ProductDetails extends Component {
   store: any;
-
   constructor(props: any) {
     super(props);
     this.store = Store;
   }
 
   render() {
-    console.log(this.store.getSelectedProduct && Object.values(toJS(this.store.getSelectedProduct)));
-    let data = this.store.getSelectedProduct && toJS(this.store.getSelectedProduct)[0];
-    return <div>
-      <p>Product Details</p>
-      <hr />
-      <span>{data.productName}</span>
-      <div>
-        {data.tags}
-      </div>
-      <input type="button" value="Go To Manufaturer" className='btn btn-primary btn-sm' />
-      <p>
-        {
-          data.description?.reduce((acc: any, curr: any) => acc + curr)
-        }
-      </p>
-      <div>
-        <input type="checkbox" name="first" id="first" />
-        <label htmlFor="first">Option 1</label>
-        <p>{data.option1}</p>
-        <input type="checkbox" name="second" id="second" />
-        <label htmlFor="first">Option 2</label>
-        <p>{data.option2}</p>
-      </div>
-      {
-        Object.keys(data)
-          .map((elem: any) => {
-            return <div className="details">
-              {/* <span>{data.productName}</span> */}
-            </div>
-          })
-      }
-    </div>
+    const selectedProduct = this.store.getSelectedProduct;
+    let data = selectedProduct && toJS(selectedProduct)[0];
 
+    return data ?
+      <div className='product__summary'>
+        <p className='product__summary-title'>Product Details</p>
+        <hr />
+        <span className='product__summary-name'>{data.productName}</span>
+        {
+          data.tags.length ?
+            <div className="product__summary-tags">
+              {
+                data.tags.map((tag: any) => <span key={tag} className="product__summary-tag">{tag}</span>)
+              }
+            </div> :
+            `No Tags available`
+        }
+        <div>
+          <input type="button" value="Go to Manufaturer" className='product__summary-CTE btn btn-primary btn-sm' />
+        </div>
+
+        <p className='product__summary-description'>
+          {
+            data.description?.reduce((acc: any, curr: any) => acc + curr)
+          }
+        </p>
+        <div className='product__summary-options'>
+
+          {
+            data.option1 && data.option2 ?
+              <div>
+                <input type="radio" name="option" id="first" />
+                <label htmlFor="first">Option 1</label>
+                <p>{data.option1}</p>
+                <input type="radio" name="option" id="second" />
+                <label htmlFor="second">Option 2</label>
+                <p>{data.option2}</p>
+              </div>
+              :
+              <span style={{ color: "#12B8FF" }}>No Available options</span>
+          }
+        </div>
+      </div >
+      : <span className='product__summary-notSelected'>No Selected Product</span>
   }
 }
 

@@ -17,7 +17,7 @@ class ProductList extends Component {
                     this.store.getProducts &&
                     this.store.getProducts
                         .map((data: any) => {
-                            return <ProductItem products={data} />
+                            return <ProductItem key={data.productName} products={data} />
                         })
                 }
             </div>

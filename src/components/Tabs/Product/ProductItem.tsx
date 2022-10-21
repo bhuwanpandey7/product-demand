@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react'
 import Store from '../../../Stores/Store';
-import productData from '../../../data/products.json';
+import { toJS } from 'mobx';
 
 interface ProductItemProps {
     products: []
@@ -9,27 +9,19 @@ interface ProductItemProps {
 
 class ProductItem extends Component<ProductItemProps> {
     store: any;
-    products: any;
-    state: any;
     constructor(props: any) {
         super(props);
-        this.state = {
-            selectedProduct: {}
-        }
         this.store = Store;
-        this.getProductDetails = this.getProductDetails.bind(this);
+        this.prepareProductDetails = this.prepareProductDetails.bind(this);
     }
 
-    getProductDetails(event: any) {
+    prepareProductDetails(event: any) {
         if (event.target === event.currentTarget) {
             this.setState(() => {
-                const products = this.store.getProducts;
+                const products = toJS(this.store.getProducts);
                 const productName = event.target.firstChild.firstChild.innerText.toLowerCase().trim();;
-                const selectedProduct = productData.filter((elem: any) => elem.productName.toLowerCase().trim() == productName);
-                // console.log(products, selectedProduct, productName);
-
-                this.state.selectedProduct = selectedProduct;
-                this.store.updateSelectedProduct(this.state.selectedProduct);
+                const selectedProduct = products.filter((elem: any) => elem.productName.toLowerCase().trim() === productName);
+                this.store.updateSelectedProduct(selectedProduct);
             })
         }
     }
@@ -37,16 +29,12 @@ class ProductItem extends Component<ProductItemProps> {
     render() {
         let data: any = this.props.products;
         return (
-            <div onClick={this.getProductDetails} className='product__List-item' key={data.productName}>
+            <div onClick={this.prepareProductDetails} className='product__List-item' key={data.productName}>
                 <div>
                     <span>{data.productName}</span>
-                    <div>
+                    <div className='product__List-item-tags'>
                         {
-                            data.tags.map((tag: any) => {
-                                return <span key={tag} style={{ color: '#12B8FF', marginLeft: '2px', padding: '2px' }}>
-                                    {tag}
-                                </span>
-                            })
+                            data.tags.map((tag: any) => <span key={tag} className="product__List-item-tag">{tag}</span>)
                         }
                     </div>
                 </div>

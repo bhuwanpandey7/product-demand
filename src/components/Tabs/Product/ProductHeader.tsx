@@ -3,6 +3,7 @@ import { IoIosSearch } from 'react-icons/io';
 import productData from '../../../data/products.json';
 import { observer } from 'mobx-react';
 import Store from '../../../Stores/Store';
+import Debouncer from '../../../helper/Debouncer';
 
 class ProductHeader extends Component {
 
@@ -40,37 +41,40 @@ class ProductHeader extends Component {
     ];
 
     fetchProductData(event: any) {
-        const store: any = Store;
-        const targetValue = event.target.value.toLowerCase().trim();
 
-        const filterTypes: any = {
-            checkbox: () => {
-                this.setState(() => {
-                    this.state.productData = targetValue.length ?
-                        productData.filter(elem => elem.category.toLowerCase().trim().includes(targetValue)) :
-                        [];
-                    // this.state.searchedProduct = event.target.value;
-                    store.updateProducts(this.state.productData);
-                })
-            },
-            text: () => {
-                this.setState(() => {
-                    this.state.productData = targetValue.length ?
-                        productData.filter(elem => elem.productName.toLowerCase().trim().includes(targetValue)) :
-                        [];
-                    // this.state.searchedProduct = event.target.value;
-                    store.updateProducts(this.state.productData);
-                })
+        const fetchProducts = () => {
+            const store: any = Store;
+            const targetValue = event.target.value.toLowerCase().trim();
+
+            const filterTypes: any = {
+                checkbox: () => {
+                    this.setState(() => {
+                        this.state.productData = targetValue.length ?
+                            productData.filter(elem => elem.category.toLowerCase().trim().includes(targetValue)) :
+                            [];
+                        store.updateProducts(this.state.productData);
+                    })
+                },
+                text: () => {
+                    this.setState(() => {
+                        this.state.productData = targetValue.length ?
+                            productData.filter(elem => elem.productName.toLowerCase().trim().includes(targetValue)) :
+                            [];
+                        store.updateProducts(this.state.productData);
+                    })
+                }
             }
+            filterTypes[event.target.type]();
         }
-        filterTypes[event.target.type]();
+
+        Debouncer.debounce(fetchProducts)();
     }
 
     render() {
         return (
             <>
                 <div className="product__header">
-                    <p>I'm Looking For</p>
+                    <p className='product__header-title'>I'm Looking For</p>
                     <hr />
                     <div className='product__header-checkFilters'>
                         {
