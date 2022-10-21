@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { IoIosSearch } from 'react-icons/io';
+// import { IoIosSearch } from 'react-icons/io';
 import productData from '../../../data/products.json';
 import { observer } from 'mobx-react';
 import Store from '../../../Stores/Store';
@@ -20,7 +20,6 @@ class ProductHeader extends Component {
     }
 
     fetchProductData(event: any) {
-        const store: any = Store;
         const targetValue = event.target.value.toLowerCase().trim();
 
         if (targetValue.length) {
