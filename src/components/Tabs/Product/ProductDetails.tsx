@@ -1,6 +1,6 @@
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Store from '../../../Stores/Store'
 
 class ProductDetails extends Component {

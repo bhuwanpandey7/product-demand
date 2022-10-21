@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import './Product.scss';
 import ProductDetails from './ProductDetails';
 import ProductHeader from './ProductHeader';

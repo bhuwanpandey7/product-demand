@@ -106,7 +106,7 @@
 			"Zeroturnaround",
 			"Xrebel"
 		],
-		"category": "Developer",
+		"category": "Software Development",
 		"manufacturerUrl": "https://www.jrebel.com/products/jrebel",
 		"description": [
 			"JRebel is a productivity tool that allows developers to reload code changes instantly. It skips the rebuild, restart and redeploy cycle common in Java development. JRebel enables developers to get more done in the same amount of time and to stay in the flow while coding."

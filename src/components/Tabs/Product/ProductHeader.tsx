@@ -1,34 +1,44 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 // import { IoIosSearch } from 'react-icons/io';
-import productData from '../../../data/products.json';
 import { observer } from 'mobx-react';
 import Store from '../../../Stores/Store';
 import Debouncer from '../../../helper/Debouncer';
 import Filters from '../../../helper/Filters';
-
+import products from '../../../products.json';
 class ProductHeader extends Component {
 
     state: any;
+    productResponse: any;
     constructor(props: any) {
         super(props);
         this.state = {
             productData: [],
             searchedProduct: "",
-            filterList: Filters.filterList()
+            filterList: Filters.filterList(),
+            checkedFilterList: []
         }
         this.fetchProductData = this.fetchProductData.bind(this);
+    }
+
+    componentDidMount(): void {
+        this.setState({ productData: products })
     }
 
     fetchProductData(event: any) {
         const targetValue = event.target.value.toLowerCase().trim();
 
         if (targetValue.length) {
+            event.target.checked ? this.state.checkedFilterList.push(targetValue) :
+                this.setState({
+                    checkedFilterList:
+                        this.state.checkedFilterList.filter((elem: any) => elem !== targetValue)
+                })
             const fetchProducts = () => {
                 const filterTypes: any = {
                     checkbox: () => {
                         this.setState({
                             productData: targetValue.length ?
-                                productData.filter(elem => elem.category.toLowerCase().trim().includes(targetValue)) :
+                                this.state.productData.filter((elem: any) => elem.category.toLowerCase().trim().includes(targetValue)) :
                                 []
                         },
                             this.updateProductList)
@@ -37,7 +47,7 @@ class ProductHeader extends Component {
                     text: () => {
                         this.setState({
                             productData: targetValue.length ?
-                                productData.filter(elem => elem.productName.toLowerCase().trim().includes(targetValue)) :
+                                this.state.productData.filter((elem: any) => elem.productName.toLowerCase().trim().includes(targetValue)) :
                                 []
                         },
                             this.updateProductList)
@@ -60,9 +70,7 @@ class ProductHeader extends Component {
 
     private resetSore() {
         const store: any = Store;
-        this.setState(() => {
-            store.resetState();
-        });
+        store.resetState();
     }
 
     render() {

@@ -1,25 +1,18 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Addressess from './Addressess/Addressess';
 import Overview from './Overview/Overview';
 import Product from './Product/Product';
 import "./Tabs.scss";
+import Constants from '../../helper/Constants';
 
 export default class Tabs extends Component {
-    TABS: any = [
-        { id: "product", name: "1 Product" },
-        { id: "address", name: "2 Addresses" },
-        { id: "overview", name: "3 Overview" }
-    ];
-
-    cssClass = "";
-
     render() {
         return (
             <>
                 <div className='tabs'>
                     <ul className="nav nav-tabs mb-3" role="tablist">
                         {
-                            this.TABS.map(({ id, name }: any) => {
+                            Constants.GetTABS().map(({ id, name }: any) => {
                                 return <li key={id} className="nav-item" role="presentation">
                                     <button
                                         className={name.includes('Product') ? "nav-link active" : "nav-link disabled"}
