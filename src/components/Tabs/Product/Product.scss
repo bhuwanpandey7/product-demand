@@ -52,9 +52,9 @@
                 -webkit-box-direction: normal;
                 -ms-flex-direction: row;
                 flex-direction: row;
-                -webkit-box-pack: start;
-                -ms-flex-pack: start;
-                justify-content: start;
+                -webkit-box-pack: flex-start;
+                -ms-flex-pack: flex-start;
+                justify-content: flex-start;
                 margin-top: 1rem;
             }
 
@@ -355,9 +355,9 @@
                     -webkit-box-direction: normal !important;
                     -ms-flex-direction: column !important;
                     flex-direction: column !important;
-                    -webkit-box-align: start;
-                    -ms-flex-align: start;
-                    align-items: flex-start;
+                    -webkit-box-align: flex-start;
+                    -ms-flex-align: flex-start;
+                    align-items: flex-flex-start;
                 }
             }
         }
