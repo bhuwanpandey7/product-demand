@@ -4,6 +4,7 @@ import {
   makeObservable,
   observable,
 } from "mobx";
+import { Filter } from "../models/Filter";
 
 class Store {
 
@@ -11,6 +12,7 @@ class Store {
   // searchedProduct: any = "";
   selectedProduct: any;
   selectedProductOption: string = "";
+  checkedFilters: Array<Filter> = [];
   constructor() {
     makeObservable(this, {
       productData: observable,
@@ -24,7 +26,17 @@ class Store {
       getSelectedProduct: computed,
       // selectedProductOption: observable,
       // updateSelectedProductOption: action,
+      checkedFilters: observable,
+      updateCheckedFilters: action
     });
+  }
+
+  removeCheckedFilter(filter: Filter) {
+    this.checkedFilters = this.checkedFilters.filter(elem => elem.label !== filter.label)
+  }
+
+  updateCheckedFilters(filter: Filter) {
+    this.checkedFilters.push(filter);
   }
 
   resetState() {

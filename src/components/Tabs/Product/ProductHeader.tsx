@@ -1,20 +1,26 @@
 // import { IoIosSearch } from 'react-icons/io';
 import { observer } from 'mobx-react';
 import Store from '../../../Stores/Store';
-import Filters from '../../../helper/Filters';
+import { FilterList } from '../../../helper/Filters';
 import products from '../../../products.json';
 import { useEffect, useState } from 'react';
 import debounce from '../../../helper/Debouncer';
+import { IProduct, IProductState } from '../../../models/ProductState.model';
+import { Filter } from '../../../models/Filter';
+import { toJS } from 'mobx';
 
 function ProductHeader() {
 
-    let state: any = {
+    let state: IProductState = {
         productData: [],
-        searchedProduct: "",
-        filterList: Filters.filterList(),
-        checkedFilterList: []
+        filterList: FilterList,
+        checkedFilterList: [],
+        searchQuery: "",
+        query: {
+            type: "",
+            target: ""
+        }
     }
-
     const [stateData, setStateData] = useState(state);
 
     useEffect(() => {
@@ -22,47 +28,88 @@ function ProductHeader() {
             ...stateData,
             productData: products
         })
-    }, [])
+        updateProductList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [stateData.checkedFilterList, stateData.query.type])
 
     function fetchProductData(event: any) {
-        const targetValue = event.target.value.toLowerCase().trim();
-
+        const store: any = Store;
+        const targetValue: any = event.target.value.toLowerCase().trim();
         if (targetValue.length) {
-            // event.target.checked ? state.checkedFilterList.push(targetValue) :
-            // setStateData({
-            //     ...stateData,
-            //     checkedFilterList:
-            //         stateData.checkedFilterList.filter((elem: any) => elem !== targetValue)
-            // })
             const fetchProducts = () => {
                 const filterTypes: any = {
                     checkbox: () => {
-                        const data = targetValue.length ?
-                            stateData.productData.filter((elem: any) => elem.category.toLowerCase().trim().includes(targetValue)) :
-                            [];
-                        updateProductList(data);
+                        filterChecked();
                     },
                     text: () => {
-                        const data = targetValue.length ?
-                            stateData.productData
-                                .filter((elem: any) => elem.productName.toLowerCase().trim().includes(targetValue)) :
-                            [];
-                        updateProductList(data);
+                        setStateData({
+                            ...stateData,
+                            query: {
+                                type: 'text',
+                                target: targetValue
+                            }
+                        })
                     }
                 }
+                console.log('event.target.type', event.target.type);
                 filterTypes[event.target.type]();
             }
             debounce(fetchProducts)();
         } else {
             resetSore();
         }
+
+        function filterChecked() {
+            if (event.target.checked) {
+                let storeCheckedFilters = toJS(store.checkedFilters).map((item: Filter) => item.label);
+                if (!storeCheckedFilters.includes(targetValue)) {
+                    updateCheckState();
+                    store.updateCheckedFilters(stateData.filterList.find(elem => elem.label.toLowerCase().trim() === targetValue));
+                }
+            } else {
+                updateCheckState();
+                store.removeCheckedFilter(stateData.filterList.find(elem => elem.label.toLowerCase().trim() === targetValue));
+            }
+        }
+
+        function updateCheckState() {
+            setStateData({
+                ...stateData,
+                query: {
+                    type: 'check',
+                    target: targetValue
+                },
+                checkedFilterList: stateData.filterList.filter(elem => elem.label.toLowerCase().trim() === targetValue)
+            });
+        }
     }
 
-    function updateProductList(searchedProducts: []) {
-        const store: any = Store;
-        searchedProducts && searchedProducts.length ?
-            store.updateProducts(searchedProducts) :
-            resetSore();
+    function updateProductList() {
+        if (stateData.query.type.length) {
+            const store: any = Store;
+            const filters = toJS(store.checkedFilters);
+            const queryTypes: any = {
+                'check': () => {
+                    const data: Array<IProduct> =
+                        stateData.productData
+                            .filter((elem: any) => filters
+                                .map((elem: Filter) => elem.label.toLowerCase().trim())
+                                .includes(elem.category.toLowerCase().trim()));
+                    data && data.length ?
+                        store.updateProducts(data) :
+                        resetSore();
+                },
+                'text': () => {
+                    const data: Array<IProduct> =
+                        stateData.productData
+                            .filter((elem: any) => elem.productName.toLowerCase().trim().includes(stateData.query.target));
+                    data && data.length ?
+                        store.updateProducts(data) :
+                        resetSore();
+                }
+            }
+            queryTypes[stateData.query.type]();
+        }
     }
 
     function resetSore() {
@@ -76,7 +123,7 @@ function ProductHeader() {
             <hr />
             <div className='product__header-checkFilters'>
                 {
-                    state.filterList.map(({ id, label }: any) => {
+                    stateData.filterList.map(({ id, label }: any) => {
                         return <div className='check__Filters' key={id} >
                             <input
                                 onChange={fetchProductData}

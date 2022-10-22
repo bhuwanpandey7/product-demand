@@ -330,9 +330,7 @@
             }
         }
 
-
         .product__data {
-            width: 100% !important;
             width: 80vw !important;
             margin-right: 1rem;
             -webkit-box-orient: vertical;
@@ -341,12 +339,12 @@
             flex-direction: column;
 
             .product__header {
-                height: 50%;
+                height: auto;
                 padding: 1rem;
                 margin-bottom: 1rem;
 
                 .search {
-                    margin-left: 1rem !important;
+                    margin-left: 0rem !important;
                     width: 60% !important;
                 }
 
