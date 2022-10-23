@@ -9,23 +9,20 @@ import { Filter } from "../models/Filter";
 class Store {
 
   productData: any = [];
-  // searchedProduct: any = "";
   selectedProduct: any;
   selectedProductOption: string = "";
   checkedFilters: Array<Filter> = [];
   constructor() {
     makeObservable(this, {
       productData: observable,
-
-      // searchedProduct: observable,
       updateProducts: action,
       getProducts: computed,
       resetState: action,
       selectedProduct: observable,
       updateSelectedProduct: action,
       getSelectedProduct: computed,
-      // selectedProductOption: observable,
-      // updateSelectedProductOption: action,
+      selectedProductOption: observable,
+      updateSelectedProductOption: action,
       checkedFilters: observable,
       updateCheckedFilters: action
     });
@@ -50,17 +47,17 @@ class Store {
   }
 
 
-  // updateSelectedProductOption(selectedOption: string) {
-  //   this.selectedProductOption = selectedOption;
-  // }
+  updateSelectedProductOption(selectedOption: string) {
+    this.selectedProductOption = selectedOption;
+  }
 
   updateSelectedProduct(selectedProduct: any) {
     this.selectedProduct = selectedProduct;
   }
 
-  // get getSelectedProductOption() {
-  //   return this.selectedProductOption;
-  // }
+  get getSelectedProductOption() {
+    return this.selectedProductOption;
+  }
 
   get getSelectedProduct() {
     return this.selectedProduct;

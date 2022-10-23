@@ -1,4 +1,3 @@
-// import { IoIosSearch } from 'react-icons/io';
 import { observer } from 'mobx-react';
 import Store from '../../../Stores/Store';
 import { FilterList } from '../../../helper/Filters';
@@ -29,8 +28,7 @@ function ProductHeader() {
             productData: products
         })
         updateProductList();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stateData.checkedFilterList, stateData.query.type])
+    }, [stateData.checkedFilterList, stateData.query.type, stateData.query.target])
 
     function fetchProductData(event: any) {
         const store: any = Store;
@@ -51,7 +49,6 @@ function ProductHeader() {
                         })
                     }
                 }
-                console.log('event.target.type', event.target.type);
                 filterTypes[event.target.type]();
             }
             debounce(fetchProducts)();
@@ -136,10 +133,7 @@ function ProductHeader() {
                     })
                 }
             </div>
-            <div className='search__Wrapper'>
-                {/* <label htmlFor="searchBar"> <IoIosSearch /></label> */}
-                <input onKeyUp={fetchProductData} className='search form-control' type="text" placeholder='Type here...' id="searchBar" />
-            </div>
+            <input onKeyUp={fetchProductData} className='search form-control' type="text" placeholder='Type here...' id="searchBar" />
         </div>
     )
 }

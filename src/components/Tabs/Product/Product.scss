@@ -25,13 +25,12 @@
         flex-direction: column;
 
         .product__header {
-            height: 25%;
+            height: 30%;
             border-radius: 2px;
             background-color: #FFFFFF;
             -webkit-box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
             box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
             margin-bottom: 1rem;
-
 
             .product__header-title {
                 display: -webkit-box;
@@ -44,26 +43,16 @@
                 align-items: center;
             }
 
-            .search__Wrapper {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-box-orient: horizontal;
-                -webkit-box-direction: normal;
-                -ms-flex-direction: row;
-                flex-direction: row;
-                -webkit-box-pack: flex-start;
-                -ms-flex-pack: flex-start;
-                justify-content: flex-start;
-                margin-top: 1rem;
-            }
-
             .search {
-                margin-left: 1rem !important;
-                width: 90% !important;
+                margin: 1rem !important;
+                width: 95% !important;
                 border: none;
                 -webkit-box-shadow: 1px 1px 2px 2px rgb(10 10 10 / 8%);
                 box-shadow: 1px 1px 2px 2px rgb(10 10 10 / 8%);
+                padding-left: 25px;
+                background: url("../../../assets/serarch.png") no-repeat scroll left;
+                background-position: 5px 10px !important;
+                background-size: 15px;
             }
 
             .product__header-checkFilters {
@@ -149,9 +138,7 @@
 
                 &:hover {
                     cursor: pointer;
-                    background-color: lightyellow;
-                    border: 1px solid grey;
-                    border-radius: 10px;
+                    border: 1px solid #12B8FF;
                 }
 
                 span {
@@ -199,6 +186,7 @@
                         margin-right: 0.4rem;
                         padding: 0.5rem;
                         border-radius: 2px;
+                        background-color: rgba(18, 184, 255, 0.04);
                         -webkit-box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
                         box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
                     }
@@ -292,6 +280,7 @@
             margin-right: 0.4rem;
             padding: 0.5rem;
             border-radius: 2px;
+            background-color: rgba(18, 184, 255, 0.04);
             -webkit-box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
             box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
         }
