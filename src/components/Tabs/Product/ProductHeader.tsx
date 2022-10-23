@@ -28,6 +28,7 @@ function ProductHeader() {
             productData: products
         })
         updateProductList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stateData.checkedFilterList, stateData.query.type, stateData.query.target])
 
     function fetchProductData(event: any) {
