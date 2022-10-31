@@ -4,7 +4,7 @@ import {
   makeObservable,
   observable,
 } from "mobx";
-import { Filter } from "../models/Filter";
+import { Filter } from "../models/Filter.model";
 
 class Store {
 

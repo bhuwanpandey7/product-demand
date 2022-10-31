@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import { useRef } from 'react'
-import Store from '../../../Stores/Store';
+import Store from '../../../../Stores/Store';
 import { toJS } from 'mobx';
 
 function ProductItem(props: any) {

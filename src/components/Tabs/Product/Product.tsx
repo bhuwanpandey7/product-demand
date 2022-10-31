@@ -1,7 +1,7 @@
 import './Product.scss';
-import ProductDetails from './ProductDetails';
-import ProductHeader from './ProductHeader';
-import ProductList from './ProductList';
+import ProductDetails from './ProductDetails/ProductDetails';
+import ProductHeader from './ProductHeader/ProductHeader';
+import ProductList from './ProductList/ProductList';
 import Store from '../../../Stores/Store'
 import { observer } from 'mobx-react';
 

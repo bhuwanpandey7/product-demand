@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react';
-import Store from '../../../Stores/Store';
-import { FilterList } from '../../../helper/Filters';
-import products from '../../../products.json';
+import Store from '../../../../Stores/Store';
+import { FilterList } from '../../../../helper/Filters';
+import products from '../../../../products.json';
 import { useEffect, useState } from 'react';
-import debounce from '../../../helper/Debouncer';
-import { IProduct, IProductState } from '../../../models/ProductState.model';
-import { Filter } from '../../../models/Filter';
+import debounce from '../../../../helper/Debounce';
+import { IProduct, IProductState } from '../../../../models/ProductState.model';
+import { Filter } from '../../../../models/Filter.model';
 import { toJS } from 'mobx';
 
 function ProductHeader() {

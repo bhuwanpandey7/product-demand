@@ -1,6 +1,6 @@
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import Store from '../../../Stores/Store'
+import Store from '../../../../Stores/Store'
 
 function ProductDetails() {
   const store = Store;

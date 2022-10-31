@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
-import Store from '../../../Stores/Store';
-import ProductItem from './ProductItem';
+import Store from '../../../../Stores/Store';
+import ProductItem from '../ProductItem/ProductItem';
 
 function ProductList() {
 

@@ -1,4 +1,4 @@
-import { Filter } from "./Filter";
+import { Filter } from "./Filter.model";
 import { IProduct } from "./Product.model";
 
 interface IProductState {
